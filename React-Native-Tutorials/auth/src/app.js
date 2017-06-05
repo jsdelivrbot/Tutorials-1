@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { Header } from './components/common'; //we don't need to specific index because its default
 
 class App extends Component {
- render() {
-   return (
-     <View>
-      <Text>An App!</Text>
-     </View>
-   );
- }
+  render() {
+    return (
+      <View>
+        <Header headerText="Authentication" />
+        <Text>An App!</Text>
+      </View>
+    );
+  }
 }
 
 
