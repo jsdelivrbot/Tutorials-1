@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import firebase from 'firebase';
-import { Header, Button } from './components/common'; //we don't need to specific index because its default
+import { Header, Button, Card, CardSection, Spinner } from './components/common'; //we don't need to specific index because its default
 import LoginForm from './components/LoginForm';
 
 class App extends Component {
-  state = { loggedIn: false };
+  state = { loggedIn: null };
 
   componentWillMount() {
     firebase.initializeApp({
@@ -21,21 +21,34 @@ class App extends Component {
       if(user) {
         this.setState({ loggedIn: true });
       } else {
-        this.setState({ loggedIn false });
+        this.setState({ loggedIn: false });
       }
     });
   }
 
   renderContent() {
-    if(this.state.loggedIn) {
-      return (
-        <Button>
-          Log Out
-        </Button>
-      );
+    switch (this.state.loggedIn) {
+      case true:
+        return (
+          <Card>
+            <CardSection>
+              <Button onPress={() => firebase.auth().signOut()}>
+                Log Out
+              </Button>
+            </CardSection>
+          </Card>
+        );
+      case false:
+        return <LoginForm />;
+      default:
+        return (
+          <View style={{ height: 500 }}>
+            <Spinner size='large' />
+          </View>
+        );
     }
-    return <LoginForm />;
   }
+
   render() {
     return (
       <View>
