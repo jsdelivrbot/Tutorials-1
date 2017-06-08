@@ -8,15 +8,14 @@ class LibraryList extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    this.DataSource = ds.cloneWithRows(this.props.libraries);
+    this.dataSource = ds.cloneWithRows(this.props.libraries);
   }
-
-  renderRow() {
-
+  //The argument library is just a random name that is an item from the ListView
+  renderRow(library) {
+    return <ListItem library={library} />;
   }
 
   render() {
-    console.log(this.props);
     return (
       <ListView
         dataSource={this.dataSource}
