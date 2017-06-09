@@ -5,6 +5,18 @@ import { createStore } from 'redux';
 import reducers from './reducers';
 
 class App extends Component {
+  componentWillMount() {
+    const config = {
+      apiKey: "AIzaSyD0FyHoMCvbm1GuIfdc9xK2xTvD82Lb9Pg",
+      authDomain: "manager-d0961.firebaseapp.com",
+      databaseURL: "https://manager-d0961.firebaseio.com",
+      projectId: "manager-d0961",
+      storageBucket: "manager-d0961.appspot.com",
+      messagingSenderId: "597155229706"
+    };
+    firebase.initializeApp(config);
+  }
+  
   render() {
     return (
       <Provider store={createStore(reducers)}>
