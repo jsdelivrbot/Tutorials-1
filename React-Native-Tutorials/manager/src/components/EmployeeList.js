@@ -1,8 +1,9 @@
 import _ from 'lodash'; //we use lodash to convert object to array
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView, View, Text } from 'react-native';
+import { ListView } from 'react-native';
 import { employeesFetch } from '../actions';
+import ListItem from './ListItem';
 
 class EmployeeList extends Component {
   componentWillMount() {
@@ -14,7 +15,7 @@ class EmployeeList extends Component {
     //nextProps are the next set of props that this component
     //will be rendered with. This.props is still the old set of props.
     //So this method allows you to use old props and new props with this.props and this.nextProps
-    this.createDataSource(this.nextProps);
+    this.createDataSource(nextProps);
   }
 
 
@@ -26,24 +27,23 @@ class EmployeeList extends Component {
     this.dataSource = ds.cloneWithRows(employees);
   }
 
+  renderRow(employee) {
+    return <ListItem employee={employee} />
+  }
   render() {
-    console.log(this.props);
     return (
-      <View>
-        <Text>EmployeeList</Text>
-        <Text>EmployeeList</Text>
-        <Text>EmployeeList</Text>
-        <Text>EmployeeList</Text>
-        <Text>EmployeeList</Text>
-        <Text>EmployeeList</Text>
-        <Text>EmployeeList</Text>
-      </View>
+      <ListView
+        enableEmptySections
+        dataSource={this.dataSource}
+        renderRow={this.renderRow}
+      >
+      </ListView>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const employees = _.map(state.employee, (val, uid) => {
+  const employees = _.map(state.employees, (val, uid) => {
     //value is our val it contains the name, phone, shift property
     //key is our uid, uid is our unique identifier for that user
     return { ...val, uid }; //i.e: { shift: 'Monday', name: 'S', id: '135rfsdf3' }
