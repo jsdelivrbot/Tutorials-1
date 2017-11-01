@@ -152,7 +152,7 @@ header nav li {
 }
 
 /*Destination Section*/
-.destinations. .grid li {
+.destinations .grid li {
   height: 350px;
   padding: 20px;
   background-clip: content-box;
@@ -160,4 +160,10 @@ header nav li {
   background-position: center;
 }
 
-.destinations .grid
+.destinations .grid li.small {
+  flex-basis: 30%;
+}
+
+.destinations .grid li.large {
+  flex-basis: 70%;
+}
