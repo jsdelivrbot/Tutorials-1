@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cons = require('consolidate');
 var dust = require('dustjs-helpers');
 var app = express();
-const { Pool, Client } = require('pg')
+const { Client } = require('pg')
 
 //DB Connect String
 // const connect = 'postgresql://Waru:123@localhost/recipeDB';
@@ -26,22 +26,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function(req, res) {
-  const pool = new Pool({
-    connectionString: connectionString,
-  })
-
-  pool.query('SELECT * FROM recipes', (err, res) => {
-    console.log(err, res)
-    pool.end()
-  })
 
   const client = new Client({
     connectionString: connectionString,
   })
   client.connect()
 
-  client.query('SELECT * FROM recipes', (err, res) => {
-    console.log(err, res)
+  client.query('SELECT * FROM recipes', (err, result) => {
+    // console.log(err, res);
+    console.log('resultzzzzz', result);
+    res.render('index', {recipes: result.rows});
     client.end()
   })
 });
