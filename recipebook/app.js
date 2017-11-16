@@ -47,9 +47,27 @@ app.post('/add', function(req, res) {
   client.connect();
 
   client.query("INSERT INTO recipes(name, ingredients, directions) VALUES($1, $2, $3)",
-    [req.body.name, req.body.ingredients, req.body.directions]);
-  client.end();
-  res.redirect('/');
+    [req.body.name, req.body.ingredients, req.body.directions])
+    .then(res.redirect('/'));
+});
+
+app.delete('/delete/:id', function(req, res) {
+  var client = new Client({
+    connectionString: connectionString,
+  });
+  client.connect();
+  client.query("DELETE FROM recipes WHERE id = $1", [req.params.id]);
+});
+
+app.post('/edit', function(req, res) {
+  var client = new Client({
+    connectionString: connectionString,
+  });
+  client.connect();
+  console.log('idddddddddddddddd', req.body.id);
+  client.query("UPDATE recipes SET name=$1, ingredients=$2, directions=$3 WHERE id = $4",
+    [req.body.name, req.body.ingredients, req.body.directions, req.body.id])
+    .then(res.redirect('/'));
 });
 
 //Server
