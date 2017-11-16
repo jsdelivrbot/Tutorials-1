@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/', function(req, res) {
 
-  const client = new Client({
+  var client = new Client({
     connectionString: connectionString,
   })
   client.connect()
@@ -38,6 +38,18 @@ app.get('/', function(req, res) {
     res.render('index', {recipes: result.rows});
     client.end()
   })
+});
+
+app.post('/add', function(req, res) {
+  var client = new Client({
+    connectionString: connectionString,
+  })
+  client.connect();
+
+  client.query("INSERT INTO recipes(name, ingredients, directions) VALUES($1, $2, $3)",
+    [req.body.name, req.body.ingredients, req.body.directions]);
+  client.end();
+  res.redirect('/');
 });
 
 //Server
