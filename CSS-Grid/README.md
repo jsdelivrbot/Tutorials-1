@@ -14,3 +14,7 @@
 * Grid Item
   * The direct children of a grid container
   * There can be any number of grid items in a grid container
+
+* Grid Line: grid line divides the container's space into rows and columns
+
+* Grid Track: The space between two adjacent grid lines (the columns and rows of the grid)
