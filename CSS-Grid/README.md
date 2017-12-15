@@ -24,3 +24,10 @@
 * Control Implicit Tracks
   * grid-auto-rows controls implicit row tracks
   * grid-auto-column controls implicit column tracks
+
+* Line based placement
+  * grid-column-start and grid-row-start specify the line where the item begins
+  * grid-column-end and grid-row-end specify where the item ends
+  * short-hand: grid-column: start / end,  grid-row: start / end
+  * You can also use span to specify how many rows or columns to span.
+    * grid-row: span 2 / 3
